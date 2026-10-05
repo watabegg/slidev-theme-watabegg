@@ -222,7 +222,7 @@ watch([scaledHeight, offsetY], () => {
   position: relative;
   z-index: 1;
   height: 100%;
-  padding: 2rem;
+  padding: var(--watabegg-slide-y) var(--watabegg-slide-x);
   box-sizing: border-box;
 }
 </style>

@@ -23,8 +23,10 @@
     "setup/**/*.ts",
     "styles/**/*.ts",
     "utils/**/*.ts",
-    "global-bottom.vue",
     "env.d.ts",
-    "types/**/*.d.ts"
+    "types/**/*.d.ts",
+    "slide-bottom.vue",
+    "custom-nav-controls.vue",
+    "global-bottom.vue"
   ]
 }

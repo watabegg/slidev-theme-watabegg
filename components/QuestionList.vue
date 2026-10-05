@@ -13,7 +13,7 @@
           <span v-else v-html="renderItemText(item)" />
         </span>
       </div>
-      <div v-if="hasSubItems(item)" class="sub-list" :style="{ marginTop: getItemText(item) ? '1rem' : '0' }">
+      <div v-if="hasSubItems(item)" class="sub-list" :style="{ marginTop: getItemText(item) ? 'var(--watabegg-block-gap)' : '0' }">
         <QuestionList
           :items="getSubItems(item)"
           :styles="styles"
@@ -349,15 +349,15 @@ const toKanji = (n: number) => {
 
 <style scoped>
 .question-list {
-  padding-left: calc(var(--level, 0) * 2.5rem);
+  padding-left: 0;
 }
 .question-item {
-  margin-bottom: 0.6rem;
+  margin-bottom: var(--watabegg-list-gap);
 }
 .item-content {
   display: flex;
   align-items: baseline;
-  line-height: 1.6;
+  line-height: var(--slidev-line-height);
 }
 .item-label {
   font-weight: bold;
@@ -372,7 +372,12 @@ const toKanji = (n: number) => {
 .item-text :deep(p) {
   margin: 0;
 }
+.item-text :deep(.katex-display),
+.item-text :deep(.katex-display > .katex) {
+  text-align: inherit;
+}
 .sub-list {
-  margin-top: 1rem;
+  margin-top: var(--watabegg-block-gap);
+  padding-left: 2em;
 }
 </style>

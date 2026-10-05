@@ -1,78 +1,30 @@
 <script setup lang="ts">
-import { computed, watchEffect } from 'vue'
+import { computed } from 'vue'
 import { useNav, useSlideContext } from '@slidev/client'
 
-import { useActiveThemePalette } from './utils/useThemePalette'
-import getLink from './utils/link'
+import ThemeFooter from './components/ThemeFooter.vue'
+import { getDensityVariables, getPresentationSettings } from './utils/presentation'
 
-const { $nav, $slidev } = useSlideContext()
-const { currentSlideRoute } = useNav()
-
-const currentFrontmatter = computed<Record<string, unknown>>(
-  () => currentSlideRoute.value.meta?.slide?.frontmatter ?? {},
-)
-
-const link = computed(() => getLink({
-  frontmatter: currentFrontmatter.value,
-  slidevConfigs: $slidev?.configs as Record<string, unknown> | undefined,
+const { $slidev } = useSlideContext()
+const { currentSlideRoute, isPrintMode } = useNav()
+const settings = computed(() => getPresentationSettings({
+  ...currentSlideRoute.value.meta?.slide?.frontmatter,
+  layout: $slidev.nav.currentLayout,
+}, $slidev.configs))
+const style = computed(() => ({
+  ...getDensityVariables(settings.value.density),
+  'view-transition-name': isPrintMode.value ? undefined : 'watabegg-footer',
 }))
-
-const { palette: currentPalette } = useActiveThemePalette({
-  slidevConfigs: $slidev?.configs as Record<string, unknown> | undefined,
-  slideValue: () => currentFrontmatter.value.color,
-})
-
-watchEffect(() => {
-  if (typeof document === 'undefined')
-    return
-
-  const palette = currentPalette.value
-  const root = document.documentElement
-
-  root.style.setProperty('--slidev-theme-primary', palette.primary)
-  root.style.setProperty('--cover-gradient-start', palette.gradientStart)
-  root.style.setProperty('--cover-gradient-end', palette.gradientEnd)
-  root.style.setProperty('--cover-accent', palette.accent)
-})
 </script>
 
 <template>
-  <footer 
-    v-if="$nav.currentLayout !== 'cover' && $nav.currentLayout !== 'image' && $nav.currentLayout !== 'image-scroll'"
-    class="exam-prep-footer"
-  >
-    <div class="footer-left">
-    </div>
-    <div class="footer-right">
-      <span>{{ $nav.currentPage }} / {{ $nav.total }}</span>
-      <a v-if="link" :href="link">ホームに戻る</a>
-      <span v-else>ホームリンク未設定</span>
-    </div>
-  </footer>
+  <ThemeFooter
+    v-show="settings.footer.visible"
+    :date="settings.footer.date"
+    :text="settings.footer.text"
+    :page="$slidev.nav.currentPage"
+    :total="$slidev.nav.total"
+    :page-number="settings.footer.pageNumber"
+    :style="style"
+  />
 </template>
-
-<style scoped>
-.exam-prep-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 3rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 2rem;
-  background: var(--slidev-theme-background);
-  border-top: 1px solid var(--slidev-theme-border);
-  font-size: 0.9rem;
-  color: var(--slidev-theme-text-secondary);
-  z-index: 20;
-}
-
-.footer-left,
-.footer-right {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-</style>

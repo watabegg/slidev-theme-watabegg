@@ -5,6 +5,7 @@ declare module '@slidev/client' {
     currentLayout: string
     currentPage: number
     total: number
+    slides: SlideRouteLike[]
   }
 
   export interface SlidevConfigsLike extends Record<string, unknown> {
@@ -12,8 +13,11 @@ declare module '@slidev/client' {
   }
 
   export interface SlideRouteLike {
+    no?: number
     meta?: {
       slide?: {
+        title?: string
+        level?: number
         frontmatter?: Record<string, unknown>
       }
     }
@@ -31,9 +35,9 @@ declare module '@slidev/client' {
       setup: () => void
     }
     $clicks: Ref<number>
-    $page: number
+    $page: Ref<number>
     $route?: unknown
-    $renderContext: unknown
+    $renderContext: Ref<string>
     $frontmatter: Record<string, unknown>
     $scale: Ref<number>
     $zoom: ComputedRef<number>
@@ -43,5 +47,6 @@ declare module '@slidev/client' {
 
   export function useNav(): {
     currentSlideRoute: Ref<SlideRouteLike>
+    isPrintMode: Ref<boolean>
   }
 }

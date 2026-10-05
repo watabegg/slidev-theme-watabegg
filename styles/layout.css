@@ -4,7 +4,8 @@
 
 
   h1 {
-    @apply text-7xl leading-tight mb-6;
+    font-size: var(--watabegg-cover-title);
+    line-height: 1.2;
     color: white;
     position: static;
     border: none;
@@ -15,7 +16,9 @@
   }
 
   h2 {
-    @apply text-3xl opacity-90 mb-8;
+    font-size: var(--watabegg-cover-subtitle);
+    opacity: 0.9;
+    margin-bottom: 24px;
     color: white;
     z-index: 10;
     position: relative;
@@ -66,7 +69,9 @@
 /* Two columns layout */
 .slidev-layout.two-cols {
   .slidev-grid-container {
-    @apply grid grid-cols-2 gap-8 h-full;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--watabegg-column-gap);
   }
   
   .col-left, .col-right {
@@ -95,7 +100,7 @@
     position: relative;
     z-index: 1;
     height: 100%;
-    padding: 2rem;
+    padding: var(--watabegg-slide-y) var(--watabegg-slide-x);
   }
   
   h1 {
@@ -144,14 +149,11 @@
     position: relative;
     z-index: 1;
     height: 100%;
-    padding: 2rem;
+    padding: var(--watabegg-slide-y) var(--watabegg-slide-x);
   }
 }
 
 .slidev-layout.end {
   @apply place-items-center;
 
-  a {
-    @apply text-3xl opacity-90 mt-20;
-  }
 }

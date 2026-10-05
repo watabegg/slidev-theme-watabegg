@@ -1,3 +1,11 @@
 allowBuilds:
   esbuild: false
   playwright-chromium: false
+# Slidev 53's Comark adapter requires Markdown-it 14's private token module.
+# Other Markdown-it consumers also accept 14; remove when Comark supports 15.
+overrides:
+  markdown-it: ^14.3.2
+  # Refresh vulnerable transitive copies used by Mermaid.
+  dompurify: ^3.4.16
+  # Shiki's Twoslash adapter still expects VMenu's pre-5.4 component shape.
+  floating-vue: 5.2.2

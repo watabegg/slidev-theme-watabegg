@@ -7,7 +7,8 @@ date: '2025/08/03'
 themeConfig:
   watabegg:
     color: blue
-    link: 'https://example.com'
+    footer:
+      text: slidev-theme-watabegg
 transition: fade
 ---
 
@@ -28,7 +29,16 @@ function hello(name: string) {
 }
 ```
 
-> ヒント: 最初の h1 は`image`, `image-scroll`Layout以外で固定ヘッダになります。
+
+---
+layout: agenda
+title: Agenda
+agenda:
+  - レイアウト
+  - コンポーネント
+  - その他の機能
+agendaActive: 2
+---
 
 ---
 layout: two-cols
@@ -42,7 +52,7 @@ color: green
 - ポイント2
 - ポイント3
 
-固定ヘッダとフッターの余白を意識した構造。
+左右に内容を分割表示。
 
 ::right::
 ### 右側
@@ -52,6 +62,11 @@ const doubled = nums.map(n=>n*2)
 console.log(doubled)
 ```
 図表 / コード / 説明などを分割表示。
+
+---
+layout: section
+title: コンポーネント
+---
 
 ---
 
@@ -94,7 +109,7 @@ console.log(doubled)
 
 KaTeX コンポーネント `<KaTexReveal>` を QuestionList 内で使用可能。
 
-<KaTexReveal formula="\\int_0^{2\\pi} \\sin x\\,dx = 0" block class="text-2xl" />
+<KaTexReveal formula="\int_0^{2\pi} \sin x\,dx = 0" block class="text-2xl" />
 
 <KaTexReveal
   formula="E = mc^2"
@@ -103,8 +118,6 @@ KaTeX コンポーネント `<KaTexReveal>` を QuestionList 内で使用可能�
   v-click="1"
 />
 
----
-layout: center
 ---
 
 # KaTeX と Markdown の混在
@@ -115,7 +128,7 @@ layout: center
       label: '①',
       text: 'Markdownと **KaTeX** を混在',
       items: [
-        { formula: 'a^2 + b^2 = c^2', block: true, class: 'text-lg text-center', tex: true },
+        { formula: 'a^2 + b^2 = c^2', block: true, class: 'text-lg', tex: true },
         { text: '$$\\frac{d}{dx} \\sin x = \\cos x$$' }
       ]
     },
@@ -166,6 +179,156 @@ image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format
 
 ---
 
+# テーブル
+
+| レイアウト | 用途 |
+|:--|:--|
+| agenda | 目次 |
+| section | 章タイトル |
+| two-cols | 2カラム |
+
+表の下には余白が入ります。
+
+---
+
+# Mermaid
+
+```mermaid
+flowchart LR
+  A[入力] --> B[処理] --> C[出力]
+```
+
+---
+
+# Mermaid：処理の流れ
+
+データの整形から学習・評価までの流れを示します。
+
+<DiagramFrame>
+
+```mermaid
+flowchart LR
+  subgraph prepare[前処理]
+    direction TB
+    A[観測データ] --> B[欠損値の確認]
+    B -->|あり| C[補完]
+    B -->|なし| D[データの整形]
+    C --> D
+  end
+  subgraph train[学習]
+    direction TB
+    E[データの分割] --> F[学習用データ]
+    E --> G[評価用データ]
+    F --> H[モデルの学習]
+  end
+  subgraph evaluate[評価]
+    direction TB
+    I[予測] --> J[指標の計算] --> K[結果を確認]
+    K -->|完了| L[結果の保存]
+  end
+  prepare --> train --> evaluate
+  evaluate -->|条件を見直す| train
+```
+
+</DiagramFrame>
+
+評価結果を確認し、必要に応じて学習条件を見直します。
+
+---
+
+# Mermaid：処理のやり取り
+
+キャッシュがある場合と、解析が必要な場合を分けて示します。
+
+<DiagramFrame :height="320">
+
+```mermaid
+sequenceDiagram
+  autonumber
+  participant U as 利用者
+  participant A as API
+  participant C as キャッシュ
+  participant W as 解析処理
+  U->>A: 解析を要求
+  A->>C: 保存済みの結果を確認
+  alt 結果あり
+    C-->>A: 保存済みの結果
+  else 結果なし
+    C-->>A: 該当なし
+    A->>W: 解析を開始
+    activate W
+    Note over W: データの整形と解析
+    W-->>A: 解析結果
+    deactivate W
+    A->>C: 結果を保存
+  end
+  A-->>U: 結果を返す
+```
+
+</DiagramFrame>
+
+一度解析した結果は保存し、同じ要求では再利用します。
+
+---
+
+# 図を2枚並べる
+
+<FigureGrid
+  :images="[
+    { src: '/examples/sin.svg', alt: 'sin x' },
+    { src: '/examples/cos.svg', alt: 'cos x' }
+  ]"
+  caption="図1　sin x と cos x"
+>
+  <template #before>
+    <p>同じ範囲で2つの関数を比較します。<br>横軸は x、縦軸は関数の値です。</p>
+  </template>
+  <template #after>
+    <p>どちらも周期は 2π です。<br>位相が π/2 だけ異なります。</p>
+  </template>
+</FigureGrid>
+
+---
+
+# 図を4枚並べる
+
+<FigureGrid
+  :images="[
+    { src: '/examples/sin.svg', alt: 'sin x' },
+    { src: '/examples/cos.svg', alt: 'cos x' },
+    { src: '/examples/gaussian.svg', alt: 'exp(-x²)' },
+    { src: '/examples/sinc.svg', alt: 'sin x / x' }
+  ]"
+  caption="図2　4つの関数の比較"
+>
+  <template #before>
+    <p>横軸の範囲を揃えて表示しています。<br>同じ大きさの図を横に並べる例です。</p>
+  </template>
+  <template #after>
+    <p>各図をまとめて1つのキャプションにします。<br>補足の文章は図の下にも置けます。</p>
+  </template>
+</FigureGrid>
+
+---
+
+# 小さい文字と参考文献
+
+Slidev の記法は公式ドキュメントで確認できます。<Cite :number="1" />
+
+<SmallText>
+  <p>補足の説明は SmallText で少し小さく表示します。</p>
+</SmallText>
+
+書籍<Cite :number="2" />や論文<Cite :number="3" />も、同じ形式で下部に表示します。
+
+<SlideReferences :items="[
+  { number: 1, type: 'web', title: 'Slidev Documentation', url: 'https://sli.dev/', accessed: '2026-10-05' },
+  { number: 2, type: 'book', title: 'Pattern Recognition and Machine Learning', authors: ['Christopher M. Bishop'], publisher: 'Springer', year: 2006 },
+  { number: 3, type: 'article', title: 'Attention Is All You Need', authors: ['Ashish Vaswani et al.'], venue: 'NeurIPS', year: 2017, url: 'https://arxiv.org/abs/1706.03762' }
+]" />
+
+---
+
 # ユーティリティ
 
 普通のテキストと <span class="text-highlight">ハイライト</span>。
@@ -183,15 +346,15 @@ image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format
 
 - Enter: 次のスライド / v-click
 - Backspace: 前へ戻る
-- フッター: (cover / image / image-scroll 以外) 日付 + ページ番号
+- フッター: (cover / image / image-scroll 以外) 日付 + 任意のテキスト + ページ番号
 
 ---
 
 # まとめ
 
-- レイアウト: cover / two-cols / image / image-scroll / end
+- レイアウト: cover / agenda / section / two-cols / image / image-scroll / end
 - コンポーネント: QuestionList / TextBox / KaTexReveal
-- 自動フッター & 固定ヘッダ
+- 自動フッター
 - ラベルスタイル多彩 & Markdown 埋め込み
 
 ご利用ありがとうございます

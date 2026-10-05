@@ -1,6 +1,8 @@
 export interface WatabeggThemeConfig {
   color?: unknown
-  link?: unknown
+  density?: unknown
+  footer?: unknown
+  navigation?: unknown
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {

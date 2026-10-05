@@ -1,21 +1,15 @@
 <template>
   <div class="slidev-layout end">
     <div class="content">
-      <h1>ご清聴ありがとうございました</h1>
-      <a :href="link">戻る</a>
+      <h1>{{ $frontmatter.title || 'ご清聴ありがとうございました' }}</h1>
+      <slot />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useSlideContext } from '@slidev/client'
-const { $frontmatter, $slidev } = useSlideContext()
-import getLink from '../utils/link'
-
-const link = getLink({
-  frontmatter: $frontmatter,
-  slidevConfigs: $slidev?.configs as Record<string, unknown> | undefined,
-})
+const { $frontmatter } = useSlideContext()
 
 </script>
 
@@ -23,6 +17,16 @@ const link = getLink({
 .content {
   z-index: 10;
   position: relative;
+}
+
+.slidev-layout.end {
+  display: grid;
+  place-content: center;
+  text-align: center;
+}
+
+.content h1 {
+  border: none;
 }
 
 .default {

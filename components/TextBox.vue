@@ -58,7 +58,7 @@ const computedClasses = computed(() => {
   .textbox {
     position: absolute;
     background-color: rgba(255, 255, 255, 0);
-    padding: 0.6rem;
+    padding: calc(var(--watabegg-block-gap) * 0.6);
     border-radius: 0.5rem;
   }
   
