@@ -1,7 +1,6 @@
-import type { NavOperations, ShortcutOptions } from '@slidev/types'
-import { defineShortcutsSetup } from '@slidev/types'
+import type { ShortcutsSetup } from '@slidev/types'
 
-export default defineShortcutsSetup((nav: NavOperations, base: ShortcutOptions[]) => {
+export default ((nav, base) => {
   return [
     ...base, // keep the existing shortcuts
     {
@@ -15,4 +14,4 @@ export default defineShortcutsSetup((nav: NavOperations, base: ShortcutOptions[]
       autoRepeat: true,
     },
   ]
-})
+}) satisfies ShortcutsSetup

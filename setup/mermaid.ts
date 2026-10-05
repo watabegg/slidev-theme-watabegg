@@ -1,6 +1,6 @@
-import { defineMermaidSetup } from '@slidev/types'
+import type { MermaidSetup } from '@slidev/types'
 
-export default defineMermaidSetup(() => ({
+export default (() => ({
   look: 'classic',
   fontFamily: '"M PLUS 2", sans-serif',
   themeVariables: { fontSize: '16px' },
@@ -25,4 +25,4 @@ export default defineMermaidSetup(() => ({
     messageFontSize: 16,
     noteFontSize: 14,
   },
-}))
+})) satisfies MermaidSetup

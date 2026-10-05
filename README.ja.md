@@ -1,6 +1,6 @@
 # slidev-theme-watabegg
 
-`slidev-theme-watabegg`（バージョン 1.1.4）は、研究発表や進捗報告での利用を想定した Slidev 向けの個人用テーマです。Vue 3 と TypeScript で開発されており、MIT ライセンスで公開されています。
+`slidev-theme-watabegg`（バージョン 1.2.0）は、研究発表や進捗報告での利用を想定した Slidev 向けの個人用テーマです。Vue 3 と TypeScript で開発されており、MIT ライセンスで公開されています。
 
 発表資料としての読みやすさを考慮し、日本語フォントには「M PLUS 2」、等幅フォントには「Fira Code」を採用しています。白を基調としたスライドに、5 色（red、yellow、green、blue、purple）のアクセントカラーを組み合わせて利用できます。カラーの初期値は green、デモ資料では blue を使用しています。コードハイライトには Shiki の `vitesse-light` および `vitesse-dark` を適用します。
 
@@ -433,4 +433,4 @@ CI 環境では、型チェック、リント、フォーマット、ビルド�
 - `markdown-it` は workspace overrides を用いて `^14.3.2` に固定しています（`package.json` の開発用依存関係でも peer 依存として提供）。これは、依存している `Comark` 0.3.4 が `markdown-it` バージョン 15 で削除された非公開ファイル（`lib/token.mjs`）を読み込んでいることへの回避策です。
 - `floating-vue` は `5.2.2` に固定しています。Shiki 4.5.0 の Twoslash が `VMenu` 登録時にインポートする `rest[1].components.Popper.extends` が FloatingVue 5.4.0 では利用できず、5.2.2 のコンポーネント構成と互換性があるためです。
 - `dompurify` はセキュリティ勧告を解消するため `^3.4.16` に更新しています。
-- なお、上流の `braces` は最新の 3.0.3 でも未修正の高重大度な勧告（https://github.com/advisories/GHSA-vfj7-8cjw-p6xm ）が残っており修正版が存在しないため、依存関係の監査（`audit:prod`）が失敗する場合があります。
+- 1.2.0では設定やショートカットを変えず、型インポートと`satisfies`による直接エクスポートで`@slidev/types`を`devDependencies`へ移しました。例外なしで本番監査を有効に保ち、本番依存から未修正の[braces勧告](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm)が除外されます。なお開発環境にはSlidev経由で`braces`が残ります。

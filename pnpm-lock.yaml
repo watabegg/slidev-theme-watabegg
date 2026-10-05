@@ -13,9 +13,6 @@ importers:
 
   .:
     dependencies:
-      '@slidev/types':
-        specifier: ^53.0.0
-        version: 53.0.0(@modelcontextprotocol/server@2.3.0)(@nuxt/kit@3.21.11)(@vue/compiler-sfc@3.5.43)(cac@7.0.0)(rolldown@1.2.12)(srvx@1.0.5)(typescript@6.0.3)(vite@8.3.2(@types/node@22.20.5)(jiti@2.7.0)(yaml@2.9.1))
       katex:
         specifier: ^0.19.0
         version: 0.19.0
@@ -32,6 +29,9 @@ importers:
       '@slidev/client':
         specifier: ^53.0.0
         version: 53.0.0(@modelcontextprotocol/server@2.3.0)(@nuxt/kit@3.21.11)(@oxc-project/types@0.152.0)(@vitejs/devtools-kit@0.4.12(@modelcontextprotocol/server@2.3.0)(cac@7.0.0)(srvx@1.0.5)(vite@8.3.2(@types/node@22.20.5)(jiti@2.7.0)(yaml@2.9.1)))(@vue/compiler-sfc@3.5.43)(cac@7.0.0)(lightningcss@1.33.0)(markdown-it@14.3.2)(oxc-parser@0.150.0)(rolldown@1.2.12)(srvx@1.0.5)(vite@8.3.2(@types/node@22.20.5)(jiti@2.7.0)(yaml@2.9.1))
+      '@slidev/types':
+        specifier: ^53.0.0
+        version: 53.0.0(@modelcontextprotocol/server@2.3.0)(@nuxt/kit@3.21.11)(@vue/compiler-sfc@3.5.43)(cac@7.0.0)(rolldown@1.2.12)(srvx@1.0.5)(typescript@6.0.3)(vite@8.3.2(@types/node@22.20.5)(jiti@2.7.0)(yaml@2.9.1))
       bumpp:
         specifier: ^12.3.0
         version: 12.3.0
