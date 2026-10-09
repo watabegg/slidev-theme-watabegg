@@ -104,7 +104,7 @@ Items may be strings or objects with a `title`. Section slides match manual agen
 
 `agendaActive` selects an item by its number. When omitted, an agenda after a section automatically emphasizes that section in bold. All item titles keep the body text color. `agendaActive: 0` disables emphasis.
 
-Agenda text is 30px (36px in `comfortable`). All number badges are theme-colored circles with white numbers in M PLUS 2 using tabular numerals. Longer numbers shrink to fit the circle. The outline is inset from the heading, with consistent gaps between chapters. Section slides use a white background, the same numbered badge at a larger size, and a theme-colored underline. Neither layout displays a subtitle. Both accept optional body content.
+Agenda text is 30px (36px in `comfortable`). All number badges are theme-colored circles with white numbers in M PLUS 2 using tabular numerals. Longer numbers shrink to fit the circle. The outline is inset from the heading, with consistent gaps between chapters. Section slides use a white background and the same numbered badge at a larger size. Neither layout displays a subtitle. Both accept optional body content.
 
 The shared outline follows the [USTC theme's section-derived agenda](https://github.com/luocfprime/slidev-theme-ustc/blob/main/utils/sectionModel.ts); no additional theme dependency is required.
 
@@ -149,7 +149,7 @@ Slidev's built-in layouts such as `default` and `center` remain available. Color
 
 ### FigureGrid
 
-Display **2–4 images** in a single row with one shared caption. Each image occupies a square box and preserves its aspect ratio without cropping. The default maximum height of 380 logical pixels includes the caption and before/after text; image sizes adapt to the remaining height and row width.
+FigureGrid supports 1–4 images in a row with one shared caption (previously 2–4). A single image fits the available full width and height, whereas 2–4 images each fit equal square boxes. Image sizes adapt to the available row width and remaining height within a default maximum total height of 380 logical pixels (including the caption and before/after text), preserving their aspect ratio without cropping (`object-fit: contain`).
 
 ```vue
 <FigureGrid
@@ -162,6 +162,16 @@ Display **2–4 images** in a single row with one shared caption. Each image occ
 ```
 
 The `before` and `after` slots allow 2–3 lines each. The `caption` slot replaces the caption prop and can contain `Cite`. Optional `height` further limits the total size. Use normal flow layouts; long text and references leave less space for images.
+
+For a single figure with a caption:
+
+```vue
+<FigureGrid
+  :images="[{ src: '/plots/a.png', alt: 'Result A' }]"
+  caption="Figure 1. Result A"
+  :height="340"
+/>
+```
 
 ### SmallText
 

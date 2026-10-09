@@ -41,7 +41,6 @@ const title = computed(() => $frontmatter.title || slide.value?.title || item.va
   align-items: center;
   gap: 24px;
   padding-bottom: 24px;
-  border-bottom: 2px solid var(--slidev-theme-primary);
   font-size: var(--watabegg-section-size);
 }
 

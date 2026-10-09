@@ -191,6 +191,55 @@ image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format
 
 ---
 
+# 複雑な表：多段見出しとセル結合
+
+HTML の `colspan` / `rowspan` で、列と行をまとめられます。
+
+<table style="width: 100%; font-size: 18px; line-height: 1.35;">
+  <caption style="caption-side: bottom; padding-top: 8px; font-size: 16px; color: var(--slidev-theme-text-secondary);">表1　条件ごとの手法比較（表示確認用の架空データ）</caption>
+  <thead>
+    <tr>
+      <th rowspan="2" scope="col">条件</th>
+      <th rowspan="2" scope="col">手法</th>
+      <th colspan="3" scope="colgroup" style="text-align: center;">評価指標 ↑</th>
+      <th colspan="2" scope="colgroup" style="text-align: center;">計算コスト ↓</th>
+    </tr>
+    <tr>
+      <th scope="col" style="text-align: right;">適合率</th>
+      <th scope="col" style="text-align: right;">再現率</th>
+      <th scope="col" style="text-align: right;">F1</th>
+      <th scope="col" style="text-align: right;">時間<br>(ms)</th>
+      <th scope="col" style="text-align: right;">メモリ<br>(MB)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" scope="rowgroup">小規模<br>100件</th>
+      <th scope="row">基準手法</th>
+      <td style="text-align: right;">0.81</td><td style="text-align: right;">0.76</td><td style="text-align: right;">0.78</td><td style="text-align: right;">12</td><td style="text-align: right;">64</td>
+    </tr>
+    <tr style="background: color-mix(in srgb, var(--slidev-theme-primary) 10%, white);">
+      <th scope="row">改良手法</th>
+      <td style="text-align: right;">0.88</td><td style="text-align: right;">0.86</td><td style="text-align: right;"><strong>0.87</strong></td><td style="text-align: right;">18</td><td style="text-align: right;">80</td>
+    </tr>
+  </tbody>
+  <tbody>
+    <tr>
+      <th rowspan="2" scope="rowgroup">大規模<br>1,000件</th>
+      <th scope="row">基準手法</th>
+      <td style="text-align: right;">0.78</td><td style="text-align: right;">0.71</td><td style="text-align: right;">0.74</td><td style="text-align: right;">95</td><td style="text-align: right;">256</td>
+    </tr>
+    <tr style="background: color-mix(in srgb, var(--slidev-theme-primary) 10%, white);">
+      <th scope="row">改良手法</th>
+      <td style="text-align: right;">0.87</td><td style="text-align: right;">0.84</td><td style="text-align: right;"><strong>0.85</strong></td><td style="text-align: right;">125</td><td style="text-align: right;">320</td>
+    </tr>
+  </tbody>
+</table>
+
+<SmallText>↑ は大きいほど、↓ は小さいほど良い指標です。太字は各条件で最大の F1 を示します。</SmallText>
+
+---
+
 # Mermaid
 
 ```mermaid
@@ -271,6 +320,23 @@ sequenceDiagram
 
 ---
 
+# 図を1枚、キャプション付きで載せる
+
+<FigureGrid
+  :images="[{ src: '/examples/sin-cos.svg', alt: 'sin x と cos x の曲線を重ねたグラフ' }]"
+  caption="図1　sin x と cos x の位相の比較"
+  :height="340"
+>
+  <template #before>
+    <p>1枚の横長グラフを、縦横比を保って表示します。</p>
+  </template>
+  <template #after>
+    <p>画像を1つ指定するだけで、図の下にキャプションが付きます。</p>
+  </template>
+</FigureGrid>
+
+---
+
 # 図を2枚並べる
 
 <FigureGrid
@@ -278,7 +344,7 @@ sequenceDiagram
     { src: '/examples/sin.svg', alt: 'sin x' },
     { src: '/examples/cos.svg', alt: 'cos x' }
   ]"
-  caption="図1　sin x と cos x"
+  caption="図2　sin x と cos x"
 >
   <template #before>
     <p>同じ範囲で2つの関数を比較します。<br>横軸は x、縦軸は関数の値です。</p>
@@ -299,7 +365,7 @@ sequenceDiagram
     { src: '/examples/gaussian.svg', alt: 'exp(-x²)' },
     { src: '/examples/sinc.svg', alt: 'sin x / x' }
   ]"
-  caption="図2　4つの関数の比較"
+  caption="図3　4つの関数の比較"
 >
   <template #before>
     <p>横軸の範囲を揃えて表示しています。<br>同じ大きさの図を横に並べる例です。</p>

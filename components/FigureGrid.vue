@@ -15,7 +15,7 @@ const root = ref<HTMLElement | null>(null)
 const plots = ref<HTMLElement | null>(null)
 const height = useAvailableHeight(root, computed(() => props.height))
 const side = ref(0)
-const validCount = computed(() => props.images.length >= 2 && props.images.length <= 4)
+const validCount = computed(() => props.images.length >= 1 && props.images.length <= 4)
 let resize: ResizeObserver | undefined
 
 function measure() {
@@ -35,11 +35,16 @@ onUnmounted(() => resize?.disconnect())
 </script>
 
 <template>
-  <div v-if="!validCount" class="figure-error">FigureGridには画像を2〜4枚指定してください。</div>
+  <div v-if="!validCount" class="figure-error">FigureGridには画像を1〜4枚指定してください。</div>
   <div v-else ref="root" class="figure-grid" :style="{ height: `${height}px` }">
     <div v-if="$slots.before" class="figure-copy"><slot name="before" /></div>
     <figure class="figure-group">
-      <div ref="plots" class="figure-images" :style="{ '--figure-side': `${side}px` }">
+      <div
+        ref="plots"
+        class="figure-images"
+        :class="{ 'figure-single': images.length === 1 }"
+        :style="{ '--figure-side': `${side}px` }"
+      >
         <img
           v-for="(image, index) in images"
           :key="index"
@@ -104,5 +109,10 @@ onUnmounted(() => resize?.disconnect())
   font-size: var(--watabegg-small-text-size);
   line-height: 1.35;
   text-align: center;
+}
+
+.figure-single .figure-image {
+  width: 100%;
+  height: 100%;
 }
 </style>
